@@ -28,25 +28,27 @@ const SignUp = () => {
         fetch('https://restcountries.eu/rest/v2/all')
         .then(response => response.json())
         .then(data => {
-            let areaData = data.map(item => {
+
+            let countryData = data.map(country => {
                 return {
-                    code: item.alpha2Code,
-                    name: item.name,
-                    callingCode: `+${item.callingCodes[0]}`,
-                    flag: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`
+                    code: country.alpha2Code,
+                    name: country.name,
+                    callingCode: `+${country.callingCodes[0]}`,
+                    flag: `https://www.countryflags.io/${country.alpha2Code}/flat/64.png`
                 }
             })
 
-            setAreas(areaData);
+            setAreas(countryData);
 
-            if(areaData.length > 0){
-                let defaultData = areaData.filter(a => a.code == 'CO')
+            if(countryData.length > 0){
+                let defaultData = countryData.filter(a => a.code === 'CO')
 
                 if(defaultData.length > 0){
                     setSelectedArea(defaultData[0])
                 }
             }
         })
+
     },[])
 
     function renderHeader() {
@@ -110,7 +112,7 @@ const SignUp = () => {
                     <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>Full Name</Text>
                     <TextInput
                         style={{
-                            marginVertical: SIZES.padding,
+                            marginVertical: SIZES.padding * 1.5,
                             borderBottomColor: COLORS.white,
                             borderBottomWidth: 1,
                             height: 40,
@@ -126,11 +128,11 @@ const SignUp = () => {
                 {/* Phone Number Input */}
                 <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>Phone Number</Text>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ alignItems: 'center', flexDirection: 'row' }}>
                         <TouchableOpacity
                             style={{
                                 width: 100,
-                                height: 50,
+                                height: 40,
                                 marginHorizontal: 5,
                                 borderBottomColor: COLORS.white,
                                 borderBottomWidth: 1,
@@ -171,9 +173,10 @@ const SignUp = () => {
                         <TextInput
                             style={{
                                 flex: 1,
-                                marginVertical: SIZES.padding,
+                                marginVertical: SIZES.padding * 1.5,
                                 borderBottomColor: COLORS.white,
                                 borderBottomWidth: 1,
+                                alignItems: 'center',
                                 height: 40,
                                 color: COLORS.white,
                                 ...FONTS.body3
@@ -227,7 +230,7 @@ const SignUp = () => {
         )
     }
 
-    function renderButton () {
+    function renderButton() {
         return (
             <View style={{ margin: SIZES.padding * 3 }}>
                 <TouchableOpacity 
@@ -246,7 +249,7 @@ const SignUp = () => {
         )
     }
 
-    function renderAreaCodesModal () {
+    function renderAreaCodesModal() {
 
         const renderItem = ({item}) => {
             return (
@@ -285,7 +288,7 @@ const SignUp = () => {
                                 height: 400,
                                 width: SIZES.width * 0.8,
                                 backgroundColor: COLORS.lightGreen,
-                                borderRadius: SIZES.radius / 2
+                                borderRadius: SIZES.radius / 1.5
                             }}
                         >
                             <FlatList
@@ -299,7 +302,6 @@ const SignUp = () => {
                                 }}
                             />
                         </View>
-
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
