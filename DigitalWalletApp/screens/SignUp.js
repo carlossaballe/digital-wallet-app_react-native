@@ -17,6 +17,37 @@ import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, SIZES, FONTS, icons, images } from '../constants'
 
 const SignUp = () => {
+    
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const [areas, setAreas] = React.useState([]);
+    const [selectedArea, setSelectedArea] = React.useState(null);
+    const [modalVisible, setModalVisible] = React.useState(false);
+
+    React.useEffect(() => {
+        fetch('https://restcountries.eu/rest/v2/all')
+        .then(response => response.json())
+        .then(data => {
+            let areaData = data.map(item => {
+                return {
+                    code: item.alpha2Code,
+                    name: item.name,
+                    callingCode: `+${item.callingCodes[0]}`,
+                    flag: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`
+                }
+            })
+
+            setAreas(areaData);
+
+            if(areaData.length > 0){
+                let defaultData = areaData.filter(a => a.code == 'CO')
+
+                if(defaultData.length > 0){
+                    setSelectedArea(defaultData[0])
+                }
+            }
+        })
+    },[])
 
     function renderHeader() {
         return (
@@ -106,7 +137,7 @@ const SignUp = () => {
                                 flexDirection: 'row',
                                 ...FONTS.body2
                             }}
-                            onPress={() => console.log('Show Modal')}
+                            onPress={() => setModalVisible(true)}
                         >
                             <View style={{ justifyContent: 'center' }}>
                                 <Image
@@ -121,7 +152,7 @@ const SignUp = () => {
 
                             <View style={{ justifyContent: 'center', marginLeft: 5 }}>
                                 <Image
-                                    source={images.usFlag}
+                                    source={{ uri: selectedArea?.flag }}
                                     resizeMode='contain'
                                     style={{
                                         width: 30,
@@ -131,7 +162,7 @@ const SignUp = () => {
                             </View>
 
                             <View style={{ justifyContent: 'center', marginLeft: 5 }}>
-                                <Text style={{ color: COLORS.white, ...FONTS.body3 }}>US+1</Text>
+                                <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{selectedArea?.callingCode}</Text>
                             </View>
 
                         </TouchableOpacity>
@@ -170,9 +201,108 @@ const SignUp = () => {
                         placeholder='Enter Password'
                         placeholderTextColor={COLORS.white}
                         selectionColor={COLORS.white}
+                        secureTextEntry={!showPassword}
                     />
+                    <TouchableOpacity 
+                        style={{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 10,
+                            height: 30,
+                            width: 30
+                        }}
+                        onPress={() => setShowPassword(!showPassword)}
+                    >
+                        <Image 
+                            source={showPassword ? icons.disable_eye : icons.eye}
+                            style={{
+                                height: 20,
+                                width: 20,
+                                tintColor: COLORS.white
+                            }}
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
+        )
+    }
+
+    function renderButton () {
+        return (
+            <View style={{ margin: SIZES.padding * 3 }}>
+                <TouchableOpacity 
+                    style={{
+                        height: 60,
+                        backgroundColor: COLORS.black,
+                        borderRadius: SIZES.radius,
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                    onPress={() => console.log('Navigate to Home')}
+                >
+                    <Text style={{ color: COLORS.white, ...FONTS.h3}}>Continue</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    function renderAreaCodesModal () {
+
+        const renderItem = ({item}) => {
+            return (
+                <TouchableOpacity
+                    style={{ padding: SIZES.padding, flexDirection: 'row' }}
+                    onPress={() => {
+                        setSelectedArea(item)
+                        setModalVisible(false)
+                    }}
+                >
+                    <Image
+                        source={{ uri: item.flag }}
+                        style={{
+                            width: 30,
+                            height: 30,
+                            marginRight: 10
+                        }}
+                    />
+                    <Text style={{ ...FONTS.body4 }}>{item.name}</Text>
+                </TouchableOpacity>
+            )
+        }
+
+        return (
+            <Modal 
+                animationType='slide'
+                transparent={true}
+                visible={modalVisible}
+            >
+                <TouchableWithoutFeedback
+                    onPress={() => setModalVisible(false)}
+                >
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                        <View
+                            style={{
+                                height: 400,
+                                width: SIZES.width * 0.8,
+                                backgroundColor: COLORS.lightGreen,
+                                borderRadius: SIZES.radius / 2
+                            }}
+                        >
+                            <FlatList
+                                data={areas}
+                                renderItem={renderItem} 
+                                keyExtractor={(item) => item.code}
+                                showsHorizontalScrollIndicator={false}
+                                style={{
+                                    padding: SIZES.padding * 2,
+                                    marginBottom: SIZES.padding * 2
+                                }}
+                            />
+                        </View>
+
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
         )
     }
 
@@ -189,8 +319,10 @@ const SignUp = () => {
                     {renderHeader()}
                     {renderLogo()}
                     {renderForm()}
+                    {renderButton()}
                 </ScrollView>
             </LinearGradient>
+            {renderAreaCodesModal()}
         </KeyboardAvoidingView>
     )
 }
