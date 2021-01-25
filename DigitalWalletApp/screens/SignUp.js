@@ -16,7 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { COLORS, SIZES, FONTS, icons, images } from '../constants'
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
     
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -241,7 +241,7 @@ const SignUp = () => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => console.log('Navigate to Home')}
+                    onPress={() => navigation.navigate('Home')}
                 >
                     <Text style={{ color: COLORS.white, ...FONTS.h3}}>Continue</Text>
                 </TouchableOpacity>
