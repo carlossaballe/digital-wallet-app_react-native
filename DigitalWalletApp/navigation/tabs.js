@@ -4,7 +4,6 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    Touchable
 } from 'react-native';
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
 import Svg, { Path } from 'react-native-svg';
@@ -102,9 +101,8 @@ const Tabs = () => {
         }
         else {
             
-            return (
-                <BottomTabBar {...props.props} />
-            )
+            return <BottomTabBar {...props.props}/>
+            
         }
     }
 
@@ -121,9 +119,7 @@ const Tabs = () => {
                     elevation: 0
                 }
             }}
-            tabBar={(props) => (
-                <CustomTabBar props={props}/>
-            )}
+            tabBar={(props) => <CustomTabBar props={props}/>}
         >
             <Tab.Screen
                 name='Home'
@@ -140,11 +136,7 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => (
-                        <TabBarCustomButton
-                            {...props}
-                        />
-                    )
+                    tabBarButton: (props) => <TabBarCustomButton {...props}/>
                 }}
             />
             <Tab.Screen
@@ -162,11 +154,7 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => (
-                        <TabBarCustomButton
-                            {...props}
-                        />
-                    )
+                    tabBarButton: (props) => <TabBarCustomButton {...props}/>    
                 }}
             />
             <Tab.Screen
@@ -184,11 +172,7 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => (
-                        <TabBarCustomButton
-                            {...props}
-                        />
-                    )
+                    tabBarButton: (props) => <TabBarCustomButton {...props}/>
                 }}
             />
         </Tab.Navigator>
