@@ -6,8 +6,6 @@ import {
     Image,
     FlatList,
     TouchableOpacity,
-    TouchableOpacityComponent,
-
 } from 'react-native';
 import { COLORS, SIZES, icons, images, FONTS } from '../constants'
 
@@ -231,20 +229,16 @@ const Home = () => {
 
         function renderPromoHeader () {
             return (
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        marginBottom: SIZES.padding
-                    }}
-                >   
+                <View style={{ flexDirection: 'row', marginBottom: SIZES.padding }}> 
+
                     <View style={{ flex: 1 }}>
-                        <Text style={{ ...FONTS.h3 }}> Special Promos</Text>
+                        <Text style={{ ...FONTS.h3 }}>Special Promos</Text>
                     </View>
-                    <TouchableOpacity
-                        onPress={() => console.log('View All')}
-                    >
+
+                    <TouchableOpacity onPress={() => console.log('View All')}>
                         <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>View All</Text>
                     </TouchableOpacity>
+
                 </View>
             )
         }
@@ -286,7 +280,7 @@ const Home = () => {
                         }}
                     >
                         <Text style={{ ...FONTS.h4 }}>{item.title}</Text>
-                        <Text style={{ ...FONTS.body4}}>{item.description}</Text>
+                        <Text style={{ ...FONTS.body4 }}>{item.description}</Text>
                     </View>
                 </TouchableOpacity>
             )
