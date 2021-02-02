@@ -30,6 +30,7 @@ const Scan = ({ navigation }) => {
                         }}
                     />
                 </TouchableOpacity>
+                
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <Text style={{ color: COLORS.white, ...FONTS.body3 }}>Scan for Payment</Text>
                 </View>
