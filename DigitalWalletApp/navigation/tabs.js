@@ -3,7 +3,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Touchable
 } from 'react-native';
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
 import Svg, { Path } from 'react-native-svg';
@@ -15,13 +16,13 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
 
-    const TabBarCustomButton = ({ accesibilityLabel, accesibilityState, children, onPress }) => {
-        
-        let isSelected = accesibilityState.selected
+    const TabBarCustomButton = ({ accessibilityLabel, accessibilityState, children, onPress }) => {
 
-        if(isSelected){
+        let isSelected = accessibilityState.selected;
+
+        if (isSelected) {
             return (
-                <View style={{ felx: 1, alignItems: 'center '}}>
+                <View style={{ flex: 1, alignItems: 'center' }}>
                     <View
                         style={{
                             flexDirection: 'row',
@@ -42,13 +43,58 @@ const Tabs = () => {
                         </Svg>
                         <View style={{ flex: 1, backgroundColor: COLORS.white }}></View>
                     </View>
+
+                    <TouchableOpacity
+                        style={{
+                            top: -22.5,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: 50,
+                            height: 50,
+                            borderRadius: 25,
+                            backgroundColor: COLORS.primary,
+                            ...styles.shadow
+                        }}
+                        onPress={onPress}
+                    >
+                        {children}
+                    </TouchableOpacity>
                 </View>
             )
         }
         else {
             return (
+                <TouchableOpacity
+                    style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: 50,
+                        height: 50,
+                        backgroundColor:COLORS.white
+                    }}
+                    activeOpacity={1}
+                    onPress={onPress}
+                >
+                    {children}
+                </TouchableOpacity>
+            )
+        }
+    }
+
+    const CustomTabBar = (props) => {
+        if(isIphoneX){
+            return (
                 <View>
 
+                </View>
+            )
+
+        }
+        else {
+            return (
+                <View>
+                    
                 </View>
             )
         }
@@ -58,7 +104,7 @@ const Tabs = () => {
         <Tab.Navigator
             tabBarOptions={{
                 showLabel: false,
-                style:{
+                style: {
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
@@ -67,10 +113,15 @@ const Tabs = () => {
                     elevation: 0
                 }
             }}
+            // tabBar={(props) => {
+            //     <CustomTabBar
+            //         props={props}
+            //     />
+            // }}
         >
             <Tab.Screen
-                name= 'Home'
-                component= {Home}
+                name='Home'
+                component={Home}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -91,8 +142,8 @@ const Tabs = () => {
                 }}
             />
             <Tab.Screen
-                name= 'Scan'
-                component= {Scan}
+                name='Scan'
+                component={Scan}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -113,8 +164,8 @@ const Tabs = () => {
                 }}
             />
             <Tab.Screen
-                name= 'User'
-                component= {Home}
+                name='User'
+                component={Home}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -137,5 +188,18 @@ const Tabs = () => {
         </Tab.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    shadow: {
+        shadowColor: COLORS.primary,
+        shadowOffset: {
+            width: 0,
+            height: 10
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    }
+})
 
 export default Tabs;
