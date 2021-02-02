@@ -17,11 +17,9 @@ const Stack = createStackNavigator();
 
 const App = () => {
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={theme}>
             <Stack.Navigator
-                screenOptions={{
-                    headerShown: false
-                }}
+                screenOptions={{ headerShown: false }}
                 initialRouteName={'SignUp'}
             >
                 <Stack.Screen name='SignUp' component={SignUp}/>
