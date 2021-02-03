@@ -1,12 +1,5 @@
 import React from 'react';
-import { 
-    SafeAreaView,
-    View, 
-    Text,
-    Image,
-    FlatList,
-    TouchableOpacity,
-} from 'react-native';
+import { SafeAreaView, View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { COLORS, SIZES, icons, images, FONTS } from '../constants'
 
 const Home = () => {
@@ -103,6 +96,7 @@ const Home = () => {
     function renderHeader () {
         return (
             <View style={{ flexDirection: 'row', marginVertical: SIZES.padding * 2 }}>
+
                 <View style={{ flex:1 }}>
                     <Text style={{ ...FONTS.h1 }}>Hello</Text>
                     <Text style={{ ...FONTS.body2, color: COLORS.gray }}>ByProgrammers</Text>
@@ -137,9 +131,10 @@ const Home = () => {
                                 borderRadius: 5
                             }}
                         >
-                        </View>
+                        </View> 
                     </TouchableOpacity>
                 </View>
+
             </View>
         )
     }
@@ -199,7 +194,9 @@ const Home = () => {
                         }}
                     />
                 </View>
+
                 <Text style={{ textAlign: 'center', flexWrap: 'wrap', ...FONTS.body4 }}>{item.description}</Text>
+
             </TouchableOpacity>
         )
 
@@ -271,6 +268,7 @@ const Home = () => {
                             }}
                         />
                     </View>
+
                     <View
                         style={{
                             padding: SIZES.padding,
@@ -282,6 +280,7 @@ const Home = () => {
                         <Text style={{ ...FONTS.h4 }}>{item.title}</Text>
                         <Text style={{ ...FONTS.body4 }}>{item.description}</Text>
                     </View>
+                    
                 </TouchableOpacity>
             )
         }

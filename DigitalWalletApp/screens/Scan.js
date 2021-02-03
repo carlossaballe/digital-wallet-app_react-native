@@ -1,18 +1,14 @@
 import React from 'react';
-import { 
-    View, 
-    Text,
-    Image,
-    TouchableOpacity
-} from 'react-native';
-import { RNCamera } from 'react-native-camera';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { COLORS, SIZES, FONTS, icons, images } from '../constants'
+import { RNCamera } from 'react-native-camera';
 
 const Scan = ({ navigation }) => {
 
     function renderHeader () {
         return (
             <View style={{ flexDirection: 'row', marginTop: SIZES.padding * 4, paddingHorizontal: SIZES.padding * 3}}>
+
                 <TouchableOpacity
                     style={{
                         width: 45,
@@ -55,6 +51,7 @@ const Scan = ({ navigation }) => {
                         }}
                     />
                 </TouchableOpacity>
+
             </View>
         )
     }
@@ -143,7 +140,8 @@ const Scan = ({ navigation }) => {
                         </View>
                         <Text style={{ marginLeft: SIZES.padding, ...FONTS.body4 }}>Barcode</Text>
                     </TouchableOpacity>
-                </View>
+                    
+                </View> 
             </View>
         )
     }
