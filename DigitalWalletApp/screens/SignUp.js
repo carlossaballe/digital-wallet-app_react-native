@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Image, TextInput} from 'react-native';
-import { Modal, FlatList, KeyboardAvoidingView, ScrollView, Platform} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image, TextInput, Modal} from 'react-native';
+import { FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Platform} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { COLORS, SIZES, FONTS, icons, images } from '../constants'
